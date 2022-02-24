@@ -1,64 +1,95 @@
+
+/**
+ * 1. 添加节点
+ * 2. 遍历共五种：前中后序 & BFS & DFS
+ */
 class MyNode {
     value: number;
-    left: MyNode = null;
-    right: MyNode = null;
+    left: MyNode;
+    right: MyNode;
 
     constructor(value) {
         this.value = value;
     }
 
     appendChildNode(childNode: MyNode) {
-        if (this.left === null) {
-            this.left = childNode;
-            return null;
+        const supArr: MyNode[] = [];
+        supArr.push(this);
+        while (supArr[0].left && supArr[0].right) {
+            supArr.push(supArr[0].left, supArr[0].right);
+            supArr.shift();
         }
 
-        if (this.right === null) {
-            this.right = childNode;
+        if (supArr[0].left === undefined) {
+            supArr[0].left = childNode;
             return null;
         }
-
-        if (this.isChildrenFull) {
-            this.left.appendChildNode(childNode);
+        if (supArr[0].right === undefined) {
+            supArr[0].right = childNode;
             return null;
         }
     }
 
-    isChildrenFull(): Boolean {
-        return this.left !== null && this.right !== null;
+    bfs(cb: Function): MyNode[] {
+        const childrenNodes: MyNode[] = [];
+        const supArr = [];
+        supArr.push(this);
+
+        while (supArr.length) {
+            const removedNode = supArr.shift();
+            if (removedNode) {
+                cb.call(this, removedNode);
+                childrenNodes.push(removedNode);
+
+                supArr.push(removedNode.left, removedNode.right);
+            }
+        }
+        return childrenNodes;
     }
 
+    dfs(cb: Function): MyNode[] {
+        const childrenNodes: MyNode[] = [];
+
+        const recursor = (node: MyNode) => {
+            cb.call(this, node);
+            childrenNodes.push(node);
+1
+            if (node.left) {
+                recursor(node.left)
+            }
+            if (node.right) {
+                recursor(node.right)
+            }
+        }
+
+        recursor(this);
+
+        return childrenNodes;
+    }
+
+    // pre-order <=> self, left, right
+    // inorder <=> left, self, right
+    // post-order <=> left, right, self
     middleFirstTraverse(cb: Function) {
         cb.call(this, this);
-        if (this.left) {
-            this.left.middleFirstTraverse(cb);
-        }
 
-        if (this.right) {
-            this.right.middleFirstTraverse(cb);
-        }
+        if (this.left) { this.left.middleFirstTraverse(cb); }
+
+        if (this.right) { this.right.middleFirstTraverse(cb); }
     }
 
     rightFirstTraverse(cb: Function) {
+        if (this.right) { this.right.rightFirstTraverse(cb); }
 
-        if (this.right) {
-            this.right.rightFirstTraverse(cb);
-        }
-
-        if (this.left) {
-            this.left.rightFirstTraverse(cb);
-        }
+        if (this.left) { this.left.rightFirstTraverse(cb); }
 
         cb.call(this, this);
     }
 }
 
-class MyTree {
-    head: MyNode = null;
-    constructor(head?: MyNode) {
-        this.head = head;
-    }
-}
+/**
+ * Unit Test
+ */
 
 const nodesArr = [1,2,3,4,5,6].map(v => {
     return new MyNode(v);
@@ -66,17 +97,33 @@ const nodesArr = [1,2,3,4,5,6].map(v => {
 
 const head = nodesArr[0];
 
-const tree = new MyTree(head);
 nodesArr.forEach((e, idx) => {
     if (idx !== 0) {
         head.appendChildNode(e);
     }
 });
 
-// nodesArr[1].middleFirstTraverse((n: MyNode) => {
-//     console.log(n.value);
-// });
+// Tree build
+/* console.log(head); */
 
-// head.rightFirstTraverse((n: MyNode) => {
-//     console.log(n.value);
-// });
+// middleFirst/inorder Traverse
+/* nodesArr[1].middleFirstTraverse((n: MyNode) => {
+    console.log(n.value);
+}); */
+
+// rightFirst
+/* head.rightFirstTraverse((n: MyNode) => {
+    console.log(n.value);
+}); */
+
+// BFS (Breadth First Search)
+/* const bfsChildrenNodes = head.bfs((node: MyNode) => {
+    console.log(node.value);
+});
+console.log('bfs result', bfsChildrenNodes); */
+
+// DFS (Deapth First Search)
+/* const dfsChildrenNodes = head.dfs((node: MyNode) => {
+    console.log(node.value);
+});
+console.log('dfs result', dfsChildrenNodes); */
