@@ -5,29 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        div.tri {
+            height: 100px;
+            width: 100px;
+            background-color: black;
+        }
+    </style>
 </head>
 <body style="height: 100vh; width: 100vw; background-color: bisque;">
-    <div style="background-color: black; color: white; margin: 10px;" id="div1">div 1</div>
-    <div style="background-color: black; color: white; margin: 10px;" id="div2">div 2</div>
-
-    <script>
-        const div1 = document.getElementById('div1');
-        const div2 = document.getElementById('div2');
-
-        console.log(div1, div2);
-
-        document.body.onclick = () => {
-            console.log('document defaut clicked');
-        }
-
-        div1.onclick = ($event) => {
-            console.log('div1 clicked', $event);
-            $event.stopPropagation();
-            document.body.onclick = () => {
-            console.log('document clicked changed by div1');
-        }
-            document.body.click();
-        }
-    </script>
+    <div id="mydiv" class="tri"></div>
 </body>
 </html>

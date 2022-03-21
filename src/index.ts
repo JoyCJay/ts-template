@@ -9,7 +9,7 @@ for (let index = 1; index < nums.length; index++) {
         if (nums[index] > nums[idx]) {
             dp[index] = Math.max(dp[idx] + 1, dp[index])
         }
-    }1
+    }
 }
 console.log(Math.max(...dp));
 console.timeEnd('solution 1.1 : DP')

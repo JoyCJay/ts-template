@@ -104,7 +104,13 @@ nodesArr.forEach((e, idx) => {
 });
 
 // Tree build
-/* console.log(head); */
+head.bfs((n) => {
+    let tempRef;
+    tempRef = n.left;
+    n.left = n.right;
+    n.right = tempRef
+});
+console.log(head);
 
 // middleFirst/inorder Traverse
 /* nodesArr[1].middleFirstTraverse((n: MyNode) => {
