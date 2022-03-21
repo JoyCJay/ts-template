@@ -1,14 +1,33 @@
+const str = " hello thank funny   hello thank  what funny"
 
-let sum = 1;
 
-for (let index = 1; index < 3; index++) {
-    sum += index * (index+1)/2
+const supMap = new Map<string, number[]>();
+
+const strArr = str.split(' ').forEach((w, idx) => {
+    if (!supMap.has(w)) {
+        supMap.set(w, [])
+    }
+
+    supMap.get(w).push(idx)
+})
+
+let res = {
+    word: null,
+    idxes: []
 }
 
-function c(n) {
-    if (n === 1) {
-        return 1;
-    } else return n*(n-1)/2 + c(n-1)
+for (const [key, idxes] of supMap) {
+    if (key !== '') {
+        if (idxes.length > res.idxes.length) {
+            res = {
+                word: key,
+                idxes
+            }
+        }
+    }
 }
 
-console.log(c(3))
+
+console.log(
+    res
+)

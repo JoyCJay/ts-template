@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Worker</title>
+
+    <script src="main.js"></script>
+    <style>
+        tr:nth-child(2n - 1) {
+            background-color: white;
+        }
+        tr:nth-child(2n) {
+            background-color: grey;
+        }
+        tr:hover {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello world</h1>
+    <div>
+        <table>
+            <tr>
+                <td>row 1, cell 1</td>
+                <td>row 1, cell 2</td>
+            </tr>
+            <tr>
+                <td>row 2, cell 1</td>
+                <td>row 2, cell 2</td>
+            </tr>
+            <tr>
+                <td>row 2, cell 1</td>
+                <td>row 2, cell 2</td>
+            </tr>
+            <tr>
+                <td>row 2, cell 1</td>
+                <td>row 2, cell 2</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <button onclick="start()">start</button>
+    </div>
+</body>
+</html>
