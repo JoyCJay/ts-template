@@ -8,6 +8,8 @@ class MyNode {
     left: MyNode;
     right: MyNode;
 
+    count?: number;
+    
     constructor(value) {
         this.value = value;
     }
@@ -104,12 +106,30 @@ nodesArr.forEach((e, idx) => {
 });
 
 // Tree build
-head.bfs((n) => {
-    let tempRef;
-    tempRef = n.left;
-    n.left = n.right;
-    n.right = tempRef
-});
+// head.bfs((n) => {
+//     let tempRef;
+//     tempRef = n.left;
+//     n.left = n.right;
+//     n.right = tempRef
+// });
+head.rightFirstTraverse((node: MyNode) => {
+    // 左右都有
+    if (node.left && node.right) {
+        const leftCount = node.left?.count || 0;
+        const rightCount = node.right?.count || 0;
+        node.count = leftCount + rightCount + 1
+    }
+    // 左右都没有
+    else if (!node.left && !node.right) {
+        node.count = 1
+    }
+    // 左右只有一个
+    else {
+        const childCount = node.left?.count || node.right?.count;
+        node.count = 1 + childCount
+    }
+})
+
 console.log(head);
 
 // middleFirst/inorder Traverse
