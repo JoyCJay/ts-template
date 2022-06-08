@@ -11,6 +11,7 @@
         display: flex;
         justify-content: center;
     }
+
     .container {
         display: flex;
         position: relative;
@@ -20,20 +21,313 @@
         height: 900px;
         width: 800px;
     }
+
+    :root {
+        --psyduck-yellow: rgb(235, 204, 101);
+        --psyduck-shadow: rgb(211, 183, 92);
+        --psyduck-profile: rgb(165, 101, 42);
+        --beak: rgb(253, 235, 176);
+        --beak-shadow:rgb(226, 210, 157);
+        --beak-profile: rgb(167, 138, 42);
+    }
 </style>
 
 <style scoped>
+@keyframes jump {
+	0% {
+        top: 10px;
+    }
+	100% {
+        top: 20px;
+    }
+}
+
+@keyframes turn {
+	0% {
+        transform: rotateY(-30deg);
+    }
+	100% {
+        transform: rotateY(30deg);
+    }
+}
+</style>
+<!-- duck -->
+<style scoped>
     .duck {
         display: flex;
-        position: relative;
+        position: absolute;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         height: 600px;
         width: 500px;
-        background-color: rgb(254, 210, 75);
+        transform-style: preserve-3d;
+        background-color: transparent;
         z-index: 1;
-        transform: translate(0,30px);
+
+        /* animation:
+            turn 5s ease-in-out 0s infinite alternate-reverse none,
+            jump 0.8s ease-in 0s infinite normal none; */
+    }
+
+    .duck-head {
+        width: 55%;
+        height: 37%;
+        border-radius: 50%;
+        background-color: var(--psyduck-yellow);
+        border-bottom: 1px solid var(--psyduck-profile);
+        border-left: 1px solid var(--psyduck-profile);
+        border-top: 1px solid var(--psyduck-profile);
+        position: absolute;
+        z-index: 10;
+        box-shadow: inset 0.5em -1em 0 0 var(--psyduck-shadow),
+        0px 15px 1px 1px var(--psyduck-shadow);
+    }
+
+    .hair {
+        width: 16px;
+        height: 53px;
+        background-color: black;
+        position: absolute;
+        top: 23%;
+        left: 47%;
+        z-index: 0;
+        border-radius: 15% 15% 0 0;
+    }
+
+    .hair::before {
+        content: '';
+        display: block;
+        width: 14px;
+        height: 46px;
+        position: absolute;
+        left: -20px;
+        top: 17px;
+        background-color: black;
+        transform: rotate(310deg);
+        z-index: 0;
+        border-radius: 10% 10% 0 0;
+    }
+    .hair::after {
+        content: '';
+        display: block;
+        width: 14px;
+        height: 46px;
+        position: absolute;
+        left: 20px;
+        top: 15px;
+        background-color: black;
+        transform: rotate(50deg);
+        z-index: 0;
+        border-radius: 10% 10% 0 0;
+    }
+
+    .eye {
+        width: 25%;
+        height: 23%;
+        border-radius: 50%;
+        border-bottom: 1px solid var(--psyduck-profile);
+        background-color: white;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0.1em 0.1em 0 0 var(--psyduck-shadow);
+    }
+
+    .left-eye {
+        top: 33%;
+        left: 12%;
+        transform: rotateZ(-5deg);
+    }
+
+    .right-eye {
+        top: 33%;
+        right: 12%;
+        transform: rotateZ(5deg);
+    }
+
+    .ball {
+        width: 10%;
+        height: 12.5%;
+        border-radius: 50%;
+        background-color: black;
+    }
+
+    .beak {
+        width: 55%;
+        height: 68%;
+        position: relative;
+        top: 58%;
+        left: 22%;
+        /* transform: skew(323deg, 7deg); */
+    }
+
+    .tramo {
+        width: 100%;
+        height: 68%;
+        position: absolute;
+        top: 13%;
+        right: 0%;
+        border-radius: 20% 20% 30% 30%;
+        background-color: var(--beak);
+        border-right: 2px solid var(--beak-profile);
+        border-left: 2px solid var(--beak-profile);
+        border-bottom: 2px solid var(--beak-profile);
+        box-shadow: inset 0.5em -0.1em 0 0 var(--beak-shadow), 
+                    inset -0.5em -0.1em 0 0 var(--beak-shadow);
+    }
+
+    .punta {
+        width: 130%;
+        height: 79%;
+        border-radius: 48% 48% 58% 57%;
+        position: absolute;
+        top: 27%;
+        right: -12%;
+        background-color: var(--beak);
+        border-bottom: 1px solid var(--beak-profile);
+        box-shadow: inset 0.1em -0.8em 0 0 var(--beak-shadow), 
+                        -1em 1em 0.1em -0.2em var(--psyduck-shadow);
+        
+    }
+
+    .nariz {
+        width: 30%;
+        height: 27%;
+        border-radius: 50%;
+        position: absolute;
+        top: 4%;
+        left: 35%;
+        background-color: var(--beak);
+        border-top: 1px solid var(--beak-profile);
+        transform: skew(318deg, 39deg);
+        box-shadow: inset 0.6em -0.9em 0 0 var(--beak-shadow),
+                    inset 0 0.2em 0 0 var(--beak-shadow)
+    }
+
+    .agujeros {
+        display: flex;
+        justify-content: space-around;
+        position: absolute;
+        top: 10%;
+        left: 33%;
+        width: 30%;
+        height: 10%;
+    }
+
+    .agujeros>div {
+        width: 7%;
+        height: 59%;
+        border-radius: 10% 0% 100% 10%;
+        background-color: var(--psyduck-profile);
+    }
+
+    .agujeros>div:nth-child(1) {
+        transform: rotate(337deg);
+    }
+
+    .agujeros>div:nth-child(2) {
+        transform: rotate(27deg);
+    }
+
+    .duck-body {
+        width: 70%;
+        height: 55%;
+        border-radius: 102% 102% 86% 86%;
+        background-color: var(--psyduck-yellow);
+        border-right: 1px solid var(--psyduck-profile);
+        display: block;
+        position: absolute;
+        bottom: -8%;
+        box-shadow: inset 3.5em -2em 0 0 var(--psyduck-shadow);
+        z-index: 7;
+    }
+
+    .right-arm>div {
+        width: 30%;
+        height: 12%;
+        background-color: var(--psyduck-yellow);
+        border-radius: 101% 7% 70% 1%;
+        border-top: 2px solid var(--psyduck-profile);
+        border-right: 2px solid var(--psyduck-profile);
+        box-shadow: inset 0.4em 0 0 0 var(--psyduck-shadow);
+    }
+
+    .arm {
+        display: flex;
+        width: 20%;
+        height: 50%;
+        border-radius: 19% 78% 34% 55%;
+        border-bottom: 1px solid var(--psyduck-profile);
+        border-right: 1px solid var(--psyduck-profile);
+        border-left: 1px solid var(--psyduck-profile);
+        background-color: var(--psyduck-yellow);
+        position: absolute;
+    }
+
+    .right-arm {
+        top: 20%;
+        left: -8%;
+        transform: rotateZ(20deg) rotateX(180deg);
+        z-index: 11;
+        box-shadow: inset 0.1rem -1.4rem 0rem 0rem var(--psyduck-shadow);
+    }
+
+    .left-arm {
+        top: -15%;
+        right: -10%;
+        transform: rotate(20deg);
+        z-index: 11;
+        box-shadow: inset 0.1rem -1.4rem 0rem 0rem var(--psyduck-shadow);
+    }
+
+    .left-arm>div {
+        width: 30%;
+        height: 12%;
+        background-color: var(--psyduck-yellow);
+        border-radius: 64% 0% 164% 0%;
+        border-top: 2px solid var(--psyduck-profile);
+        border-right: 2px solid var(--psyduck-profile);
+        transform: rotate(300deg);
+        box-shadow: inset -0.4em -0.2em 0 0 var(--psyduck-shadow);
+    }
+
+    .left-arm>div:nth-child(3) {
+        position: absolute;
+        top: -8%;
+        right: 24%;
+        z-index: -2;
+    }
+
+    .left-arm>div:nth-child(2) {
+        position: absolute;
+        top: -10%;
+        right: 45%;
+    }
+
+    .foot {
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        bottom: -10%;
+        z-index: 5;
+        width: 100px;
+        height: 50px;
+        border-radius: 27% 30% 83% 100%;
+        border-bottom: 1px solid var(--beak-profile);
+        border-left: 1px solid var(--beak-profile);
+        background-color: var(--beak-shadow);
+    }
+
+    .left-foot {
+        left: 19%;
+        transform: rotateZ(20deg) skew(-50deg, 0deg);
+    }
+
+    .right-foot {
+        right: 19%;
+        transform: rotateZ(-20deg) skew(50deg, 0deg);
     }
 </style>
 
@@ -108,12 +402,14 @@
 <!-- radio -->
 <style scoped>
     .radio {
-        position: relative;
         width: 200px;
         height: 200px;
         transform-style: preserve-3d;
-        transform: rotate3d(-2, -3, 1.3, 45deg) translateX(200px) translateY(-80px);
+        transform: rotate3d(-2, -3, 0.6, 45deg) translateX(200px) translateY(-80px);
         /* perspective: -300px; */
+        position: absolute;
+        bottom: 100px;
+        z-index: 20;
     }
 
     .face {
@@ -196,7 +492,45 @@
 <body>
     <div class="container">
         <div class="duck">
+            <div class="hair"></div>
+            <div class="duck-head">
+                <div class="eye left-eye">
+                    <div class="ball"></div>
+                </div>
 
+                <div class="eye right-eye">
+                    <div class="ball"></div>
+                </div>
+
+                <!-- 鼻子嘴巴 -->
+                <div class="beak">
+                    <div class="nariz"></div>
+                    <div class="tramo"></div>
+                    <div class="punta"></div>
+                    <!-- 鼻孔 -->
+                    <div class="agujeros">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="duck-body">
+                <div class="arm right-arm">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
+                <div class="arm left-arm">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+
+            <div class="foot left-foot"></div>
+            <div class="foot right-foot"></div>
         </div>
 
         <div class="bottom-plate">
