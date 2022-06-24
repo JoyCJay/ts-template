@@ -31,7 +31,7 @@ for (let [k,v] of map.entries()){
 
 
 // let obj={
-//     data:['name:前端小鹿','age:18', 'sex:男'],
+//     data:['name:cj','age:26', 'sex:male'],
 //     [Symbol.iterator]: function(){
 //       const self=this
 //         let index=0;

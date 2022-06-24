@@ -1,46 +1,3 @@
-/**
- * 当前执行栈执行完毕时会立刻先处理所有微任务队列中的事件，然后再去宏任务队列中取出一个事件
- * 同一次事件循环中，微任务永远在宏任务之前执行。
- */
-function f1() {
-    console.log(1)
-    
-    setTimeout(() => {
-        console.log(5)
-    }, 0);
-    
-    new Promise<void>((res) => {
-        console.log(2)
-        res();
-    }).then(v => {
-        console.log(4)
-        setTimeout(() => {
-            console.log(6)
-        }, 0);
-    })
-    
-    console.log(3)
-}
-// f1()
-
-function f2() {
-    function debounce(cb: Function, dTime = 1000){
-        let timer;
-
-        return (...args) => {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-                cb(args);
-            }, dTime);
-        };
-    }
-
-    debounce((v) => {
-        console.log("cb", v)
-    }, 2000)('p1', 'p2');
-}
-// f2()
-
 function f3() {
     // Example 1
     interface GenericInterface<U> {
@@ -121,5 +78,3 @@ function f3() {
     console.log(p1, p2)
 }
 f3()
-
-
