@@ -11,17 +11,38 @@
 </body>
 <script>
     
-setTimeout(()=>{
-    console.log('timer1')
-    Promise.resolve().then(function() {
-        console.log('promise1')
-    })
-}, 0)
-setTimeout(()=>{
-    console.log('timer2')
-    Promise.resolve().then(function() {
-        console.log('promise2')
-    })
-}, 0)
+// setTimeout(()=>{
+//     console.log('timer1')
+//     Promise.resolve().then(function() {
+//         console.log('promise1')
+//     })
+// }, 0)
+// setTimeout(()=>{
+//     console.log('timer2')
+//     Promise.resolve().then(function() {
+//         console.log('promise2')
+//     })
+// }, 0)
+
+console.log('sync1')
+
+Promise.resolve().then(() => {
+    console.log('p1 then')
+
+    setTimeout(() => {
+        console.log('p1 timeout')
+    }, 0);
+})
+
+Promise.resolve().then(() => {
+    console.log('p2 then')
+
+    setTimeout(() => {
+        console.log('p2 timeout')
+    }, 0);
+})
+
+console.log('sync2')
+
 </script>
 </html>

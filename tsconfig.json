@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+      "experimentalDecorators": true,
       "preserveConstEnums": true,
       "target": "ES6"
     },
